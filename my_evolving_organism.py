@@ -2,7 +2,7 @@
 #
 # Evolving Simple Organisms
 # Inspired by Nathan Rooy's evolving simple organisms.
-# Data classes and function names originally by Nathan Rooy
+# Data classes and names for functions originally by Nathan Rooy
 # rest by Shao Liang
 #------------------------------------------------------------------------------+
 
@@ -88,9 +88,20 @@ def update_vel(org, settings):
 def update_pos(org, settings):
     """
     Mutate org.x, org.y in place based on org.v, org.r, settings['dt'].
+
+    logic:
+    distance:
+    sqrt((v*cos(r)*dt)² + (v*sin(r)*dt)²)
+    = v*dt * sqrt(cos(r)² + sin(r)²)
+
+    thus it will always move by v*dt in distance
+
     """
-    # TODO: implement
-    pass
+    x = org.v * cos(radians(org.r)) * settings['dt']
+    y = org.v * sin(radians(org.r)) * settings['dt']
+    org.x += x
+    org.y += y
+
 
 
 # ---------------------------------------------------------------------------
