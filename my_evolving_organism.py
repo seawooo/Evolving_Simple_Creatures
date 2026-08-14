@@ -63,8 +63,10 @@ def update_r(org, settings):
     settings['dr_max'] (max degrees/sec), and settings['dt'].
     Keep org.r wrapped into [0, 360).
     """
-    # TODO: implement
-    pass
+    change = org.nn_dr * settings['dr_max'] * settings['dt']
+    org.r = (org.r + change) % 360
+    
+
 
 
 def update_vel(org, settings):
@@ -72,8 +74,15 @@ def update_vel(org, settings):
     Mutate org.v in place based on org.nn_dv (a decision in [-1, 1]),
     settings['dv_max'], settings['dt']. Clamp into [0, settings['v_max']].
     """
-    # TODO: implement
-    pass
+    change = org.nn_dv * settings['dv_max'] * settings['dv_max']
+    if org.v + change < 0:
+        org.v = 0
+    elif org.v + change > settings['v_max']: 
+        org.v = settings['v_max']
+    else:
+        org.v += change
+    
+
 
 
 def update_pos(org, settings):
