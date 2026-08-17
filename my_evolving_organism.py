@@ -6,7 +6,7 @@
 # rest by Shao Liang
 #------------------------------------------------------------------------------+
 
-from math import atan2, cos, degrees, floor, radians, sin, sqrt
+from math import atan2, cos, degrees, floor, radians, sin, sqrt, tanh
 from random import randint, random, sample, uniform
 from collections import defaultdict
 import operator
@@ -114,8 +114,10 @@ def think(org):
     based on org.r_food (float input), org.wih (shape: hnodes x inodes),
     org.who (shape: onodes x hnodes).
     """
-    # TODO: implement
-    pass
+    output_hidden = np.tanh(np.dot(org.r_food, org.wih)) # 5x1
+    output = np.tanh(np.dot(org.who, output_hidden)) # 2x1
+    org.nn_dv, org.nn_dr = output[0], output[1]
+
 
 
 # ---------------------------------------------------------------------------
